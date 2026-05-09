@@ -18,7 +18,7 @@ React Doctor Local is a local-only fork of `millionco/react-doctor`, maintained 
 Run directly from the public GitHub repository:
 
 ```bash
-npx -y github:leprincep35700/react-doctor-local .
+npx -y https://github.com/leprincep35700/react-doctor-local/archive/refs/heads/main.tar.gz .
 ```
 
 Compatibility alias, if installed from this package:
@@ -38,7 +38,7 @@ It keeps the React diagnostics from the upstream project: state and effects, per
 ## Agent skill install
 
 ```bash
-npx -y react-doctor-local@latest install --dry-run
+npx -y https://github.com/leprincep35700/react-doctor-local/archive/refs/heads/main.tar.gz install --dry-run
 ```
 
 Review what will be written before installing agent instructions.

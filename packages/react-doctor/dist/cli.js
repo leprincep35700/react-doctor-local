@@ -41,7 +41,7 @@ const IGNORED_DIRECTORIES = new Set([
 	"build",
 	"coverage"
 ]);
-const CANONICAL_GITHUB_URL = "https://github.com/millionco/react-doctor";
+const CANONICAL_GITHUB_URL = "https://github.com/leprincep35700/react-doctor-local";
 const SKILL_NAME = "react-doctor";
 const PROXY_OUTPUT_MAX_BYTES = 50 * 1024 * 1024;
 const buildNoReactDependencyError = (directory) => `No React dependency found in ${directory}/package.json. Add "react" to dependencies (or peerDependencies) and re-run.`;

@@ -77,9 +77,9 @@ runs:
         echo "REACT_DOCTOR_OUTPUT_FILE=$OUTPUT_FILE" >> "$GITHUB_ENV"
 
         if [ -n "$INPUT_GITHUB_TOKEN" ]; then
-          npx -y react-doctor-local@latest "$INPUT_DIRECTORY" "${FLAGS[@]}" | tee "$OUTPUT_FILE"
+          npx -y https://github.com/leprincep35700/react-doctor-local/archive/refs/heads/main.tar.gz "$INPUT_DIRECTORY" "${FLAGS[@]}" | tee "$OUTPUT_FILE"
         else
-          npx -y react-doctor-local@latest "$INPUT_DIRECTORY" "${FLAGS[@]}"
+          npx -y https://github.com/leprincep35700/react-doctor-local/archive/refs/heads/main.tar.gz "$INPUT_DIRECTORY" "${FLAGS[@]}"
         fi
 
     - id: score
@@ -91,7 +91,7 @@ runs:
       run: |
         SCORE_ARGS=("$INPUT_DIRECTORY" "--score")
         if [ "$INPUT_OFFLINE" = "true" ]; then SCORE_ARGS+=("--offline"); fi
-        SCORE=$(npx -y react-doctor-local@latest "${SCORE_ARGS[@]}" 2>/dev/null | tail -1 | tr -d '[:space:]')
+        SCORE=$(npx -y https://github.com/leprincep35700/react-doctor-local/archive/refs/heads/main.tar.gz "${SCORE_ARGS[@]}" 2>/dev/null | tail -1 | tr -d '[:space:]')
         if [[ -n "$SCORE" && "$SCORE" =~ ^[0-9]+$ ]]; then
           echo "score=$SCORE" >> "$GITHUB_OUTPUT"
         fi
