@@ -15,8 +15,10 @@ React Doctor Local is a local-only fork of `millionco/react-doctor`, maintained 
 
 ## Usage
 
+Run directly from the public GitHub repository:
+
 ```bash
-npx -y react-doctor-local@latest .
+npx -y github:leprincep35700/react-doctor-local .
 ```
 
 Compatibility alias, if installed from this package:
@@ -24,6 +26,8 @@ Compatibility alias, if installed from this package:
 ```bash
 react-doctor .
 ```
+
+The package is not published to npm yet. The GitHub `npx` command above is the supported public install path for now.
 
 The `--offline` flag is kept as a compatibility no-op: every scan is already local-only.
 
