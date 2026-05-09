@@ -1,0 +1,51 @@
+{
+  "name": "react-doctor-local",
+  "private": true,
+  "homepage": "https://github.com/leprincep35700/react-doctor-local#readme",
+  "bugs": {
+    "url": "https://github.com/leprincep35700/react-doctor-local/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leprincep35700/react-doctor-local.git"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "turbo run dev --filter=react-doctor-local",
+    "build": "turbo run build --filter=react-doctor-local",
+    "test": "turbo run test --filter=react-doctor-local",
+    "typecheck": "turbo run typecheck",
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix",
+    "format": "vp fmt",
+    "format:check": "vp fmt --check",
+    "check": "vp check",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "@types/node": "^25.6.0",
+    "@voidzero-dev/vite-plus-core": "^0.1.15",
+    "turbo": "^2.9.7",
+    "typescript": "^6.0.3",
+    "vite-plus": "^0.1.15"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=8"
+  },
+  "packageManager": "pnpm@10.29.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "unrs-resolver"
+    ],
+    "overrides": {
+      "oxlint": "^1.63.0",
+      "oxlint-tsgolint": "^0.22.1"
+    }
+  }
+}
