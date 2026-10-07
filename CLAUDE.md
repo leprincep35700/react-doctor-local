@@ -1,11 +1,12 @@
 # CLAUDE.md
 
 ## Webhooks (FACTUEL)
+
 - Les webhooks ne livrent QUE les échecs, jamais les succès.
 - Ne JAMAIS attendre un webhook de succès, il n'arrivera pas.
 - Pour confirmer qu'un job a réussi : interroger directement
   [ton endpoint/commande de statut] et vérifier le statut réel.
-d1ba367 (docs: add GitHub CI polling guidance)
+  d1ba367 (docs: add GitHub CI polling guidance)
 
 ## Pitfall — Attendre une CI GitHub verte (polling)
 
@@ -25,6 +26,7 @@ faire `while !vert: sleep` (sleep avant-plan bloqué + GitHub inaccessible depui
 bash → uniquement via MCP).
 
 **Règle** :
+
 - Ne jamais merger sur un check partiel : attendre que **TOUS** les checks
   GitHub (`ci` **et** `docker-build`) soient `completed/success`.
 - Pour attendre un vert : **réveils courts (~45–60 s) répétés jusqu'au vert**,
@@ -38,12 +40,12 @@ bash → uniquement via MCP).
 (`get_check_runs`) montre les deux checks en `completed/success` avant merge ;
 peu de cycles d'attente (pas 4+ réveils qui ratent la fin de peu).
 
-
 ## Règle — Surveillance CI GitHub jusqu'au vert
 
 Quand on attend une CI GitHub verte, ne pas supposer qu'un webhook ou Claude préviendra au succès. Les notifications fiables couvrent surtout les échecs/reviews ; un succès doit être constaté par polling.
 
 Cadence par défaut :
+
 - Vérifier d'abord les checks/jobs réels et le SHA concerné.
 - Si les jobs sont `pending`/`queued`, re-sonder toutes les 2–3 minutes.
 - Dès que les jobs sont `in_progress` ou proches de leur durée habituelle, resserrer à 45–60 secondes jusqu'au vert.
