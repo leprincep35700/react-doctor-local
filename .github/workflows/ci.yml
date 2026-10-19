@@ -5,16 +5,32 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      qualification_host:
+        description: Runner qualification (x64 selects ABI only)
+        required: false
+        default: shared
+        type: choice
+        options: [shared, mac, x64]
+
+permissions:
+  contents: read
 
 jobs:
   test:
-    runs-on: [self-hosted, Linux, X64, react-doctor-local-hermes-ephemeral]
+    runs-on: ${{ fromJSON((github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && (inputs.qualification_host == 'mac' && '["self-hosted","Linux","react-doctor-local-hermes-ephemeral","ci-host-tlpr-mac"]' || inputs.qualification_host == 'x64' && '["self-hosted","Linux","react-doctor-local-hermes-ephemeral","X64"]' || '["self-hosted","Linux","react-doctor-local-hermes-ephemeral"]') || '"ubuntu-latest"') }}
     strategy:
       fail-fast: false
       matrix:
         node-version: [22, 24]
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Execution architecture evidence
+        if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+        run: bash scripts/ci-host-evidence.sh
 
       - uses: pnpm/action-setup@v4
 
@@ -33,10 +49,14 @@ jobs:
             echo "local=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: ${{ steps.cicache.outputs.local != 'true' && 'pnpm' || '' }}
+
+      - name: CI regression guards
+        run: node --test tests/ci/*.test.mjs
 
       - run: pnpm install --frozen-lockfile
 
