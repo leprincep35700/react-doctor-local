@@ -38,6 +38,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: ${{ steps.cicache.outputs.local != 'true' && 'pnpm' || '' }}
 
+      - name: CI regression guards
+        run: node --test tests/ci/*.test.mjs
+
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm test
