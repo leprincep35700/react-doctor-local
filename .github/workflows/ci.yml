@@ -46,8 +46,12 @@ jobs:
         run: |
           code=true
           if [ "$EVENT_NAME" = pull_request ]; then
-            files=$(git diff --name-only HEAD^1 HEAD)
-            if [ -n "$files" ] && ! printf '%s\n' "$files" | grep -qvE '(\.md$|^docs/)'; then
+            # --no-renames : un fichier déplacé vers docs/ compte aussi par son ancien chemin.
+            files=$(git diff --name-only --no-renames HEAD^1 HEAD)
+            # Fichiers sous docs/ ou en .md lus par l'application : du code, pas de la doc.
+            runtime='^skills/'
+            code_files=$( { printf '%s\n' "$files" | grep -vE '(\.md$|^docs/)'; printf '%s\n' "$files" | grep -E "$runtime"; } || true )
+            if [ -n "$files" ] && [ -z "$code_files" ]; then
               code=false
             fi
           fi
