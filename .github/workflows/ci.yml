@@ -58,7 +58,6 @@ jobs:
           echo "code=$code" >> "$GITHUB_OUTPUT"
           echo "Code changed: $code"
 
-
       - uses: pnpm/action-setup@v4
 
       # Runner self-hosted avec volume de cache persistant (ci-worker-orchestrator,
